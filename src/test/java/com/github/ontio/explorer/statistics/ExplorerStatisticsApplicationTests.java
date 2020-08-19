@@ -1,7 +1,10 @@
 package com.github.ontio.explorer.statistics;
 
+import com.github.ontio.explorer.statistics.mapper.NodeInfoOffChainMapper;
+import com.github.ontio.explorer.statistics.model.NodeInfoOffChain;
 import com.github.ontio.explorer.statistics.model.NodeInfoOnChain;
 import com.github.ontio.explorer.statistics.service.ConsensusNodeService;
+import com.github.ontio.explorer.statistics.service.OntSdkService;
 import com.github.ontio.explorer.statistics.task.NodeSchedule;
 import com.github.ontio.explorer.statistics.task.DailyInfoSchedule;
 import org.junit.Ignore;
@@ -27,6 +30,12 @@ public class ExplorerStatisticsApplicationTests {
 
     @Autowired
     ConsensusNodeService consensusNodeService;
+
+    @Autowired
+    NodeInfoOffChainMapper nodeInfoOffChainMapper;
+
+    @Autowired
+    OntSdkService sdkService;
 
     @Test
     public void testUpdateDailyInfo() {
@@ -69,6 +78,18 @@ public class ExplorerStatisticsApplicationTests {
     @Test
     public void testUpdateNodeOverviewHistory() {
 //        consensusNodeService.maintainBlkRndHistory(0, 8334300L, 60000);
+        NodeInfoOffChain nodeInfoOffChain = new NodeInfoOffChain();
+        nodeInfoOffChain.setAddress("jjjjjjjjjjjjjjjjjjjjjjjjj");
+        nodeInfoOffChain.setOntId("kkkkkkkkkkkkkkkkkkkkkkkkkk");
+        nodeInfoOffChain.setPublicKey("lllllllllllllllllllllllll");
+        nodeInfoOffChain.setNodeType(1);
+        nodeInfoOffChainMapper.insertSelective(nodeInfoOffChain);
+    }
+
+    @Test
+    public void getPreConfig() {
+        int preConsensusCount = sdkService.getPreConsensusCount();
+        System.out.println("" + preConsensusCount);
     }
 
 }

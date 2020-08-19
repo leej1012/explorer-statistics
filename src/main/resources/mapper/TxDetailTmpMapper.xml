@@ -63,7 +63,7 @@
     <select id="selectContractAssetAmount" resultType="java.math.BigDecimal">
         SELECT sum(amount)
         FROM tbl_tx_detail_tmp
-        WHERE called_contract_hash = #{contractHash}
+        WHERE contract_hash = #{contractHash}
           AND asset_name = #{assetName}
           AND confirm_flag = 1
     </select>
@@ -71,7 +71,7 @@
         select count(DISTINCT (tx_hash))
         from tbl_tx_detail_tmp
         where confirm_flag = 1
-          and called_contract_hash = #{contractHash}
+          and contract_hash = #{contractHash}
     </select>
     <select id="selectContractAddr4Dapp" parameterType="java.lang.String" resultType="java.lang.String">
         select DISTINCT(address)
@@ -93,12 +93,12 @@
         from (
                 SELECT DISTINCT(from_address) as address
                 FROM tbl_tx_detail_tmp
-                WHERE called_contract_hash = #{contractHash}
+                WHERE contract_hash = #{contractHash}
                 AND confirm_flag = 1
             UNION
                 SELECT DISTINCT(to_address) as address
                 FROM tbl_tx_detail_tmp
-                WHERE called_contract_hash = #{contractHash}
+                WHERE contract_hash = #{contractHash}
                 AND confirm_flag = 1
         ) t
     </select>
