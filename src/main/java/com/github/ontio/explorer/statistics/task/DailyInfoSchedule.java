@@ -48,4 +48,8 @@ public class DailyInfoSchedule {
         log.info("Updating approved contract information task end");
     }
 
+    @Scheduled(initialDelay = 5 * 1000, fixedDelay = 60 * 60 * 1000)
+    public void getBlockHeight() {
+        statisticsService.getBlockHeight();
+    }
 }

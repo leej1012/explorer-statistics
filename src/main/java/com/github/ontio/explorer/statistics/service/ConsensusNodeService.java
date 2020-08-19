@@ -662,9 +662,4 @@ public class ConsensusNodeService {
         }
         return new BigDecimal(totalStake);
     }
-
-    public void getBlockHeight() {
-        int blockHeight = ontSdkService.getBlockHeight();
-        log.info("current block height:{}",blockHeight);
-    }
 }

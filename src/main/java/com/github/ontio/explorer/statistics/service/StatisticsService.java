@@ -45,6 +45,7 @@ public class StatisticsService {
     private ParamsConfig paramsConfig;
     private NodeOverviewHistoryMapper nodeOverviewHistoryMapper;
     private OngSupplyMapper ongSupplyMapper;
+    private OntSdkService ontSdkService;
 
     private static final Integer TIMESTAMP_20200707000000_UTC = 1594080000;
 
@@ -53,7 +54,8 @@ public class StatisticsService {
                              ContractMapper contractMapper, TxDetailDailyMapper txDetailDailyMapper,
                              DailySummaryMapper dailySummaryMapper, OntidTxDetailMapper ontidTxDetailMapper,
                              AddressDailySummaryMapper addrDailySummaryMapper, ContractDailySummaryMapper contractDailySummaryMapper,
-                             ParamsConfig paramsConfig, NodeOverviewHistoryMapper nodeOverviewHistoryMapper, OngSupplyMapper ongSupplyMapper) {
+                             ParamsConfig paramsConfig, NodeOverviewHistoryMapper nodeOverviewHistoryMapper, OngSupplyMapper ongSupplyMapper,
+                             OntSdkService ontSdkService) {
         this.blockMapper = blockMapper;
         this.txDetailTmpMapper = txDetailTmpMapper;
         this.contractMapper = contractMapper;
@@ -65,6 +67,7 @@ public class StatisticsService {
         this.paramsConfig = paramsConfig;
         this.nodeOverviewHistoryMapper = nodeOverviewHistoryMapper;
         this.ongSupplyMapper = ongSupplyMapper;
+        this.ontSdkService = ontSdkService;
     }
 
     public void updateDailySummary() {
@@ -436,6 +439,11 @@ public class StatisticsService {
             ongSupply.setCycle(cycle);
             ongSupplyMapper.updateByPrimaryKeySelective(ongSupply);
         }
+    }
+
+    public void getBlockHeight() {
+        int blockHeight = ontSdkService.getBlockHeight();
+        log.info("current block height:{}", blockHeight);
     }
 }
 
