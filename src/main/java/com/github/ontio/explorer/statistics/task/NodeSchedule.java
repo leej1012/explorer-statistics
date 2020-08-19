@@ -105,4 +105,8 @@ public class NodeSchedule {
         }
     }
 
+    @Scheduled(initialDelay = 5 * 1000, fixedDelay = 60 * 60 * 1000)
+    public void getBlockHeight() {
+        consensusNodeService.getBlockHeight();
+    }
 }
